@@ -11,9 +11,9 @@ def format_string(url_str):
 
 def get_edge_file():
     edge_file = open("wiki_data/links.tsv", "rb")
-    edges = nx.read_edgelist(edge_file)
+    graph = nx.read_edgelist(edge_file)
     edge_file.close()
-    return edges
+    return graph
 
 
 def read_node_file():
@@ -23,15 +23,18 @@ def read_node_file():
 
 
 def create_graph():
-    graph_nodes = read_node_file()
-    graph = nx.read_edgelist(get_edge_file())
-    nx.set_node_attributes(graph, graph_nodes.to_dict(), 'ArticleName')
+    nodes = read_node_file()
+    graph = get_edge_file()
+    nx.set_node_attributes(graph, nodes.to_dict(), 'ArticleName')
     return graph
 
 
 def main():
-    graph = create_graph()
-    nx.write_gml(graph, "./wiki_data/graph_file.gml")
+    wiki_network = create_graph()
+
+    print(wiki_network.number_of_edges())
+
+    nx.write_gml(wiki_network, "./wiki_data/wiki_network.gml")
 
 
 if __name__ == "__main__":
