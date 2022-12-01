@@ -4,11 +4,11 @@ from sknetwork.clustering import Louvain
 import numpy as np
 import pandas as  pd
 
-graph = from_graphml("wiki_data/wiki_network.graphml")
+graph = from_graphml("../wiki_data/wiki_network.graphml")
 adjacency = graph.adjacency
 names = graph.names
 
-G = nx.read_graphml("wiki_data/wiki_network.graphml")
+G = nx.read_graphml("../wiki_data/wiki_network.graphml")
 
 labels = Louvain().fit_transform(adjacency)
 
@@ -19,7 +19,7 @@ community_df.sort_values(by = ['Community'])
 # Storing community sizes
 group_df = community_df.groupby(['Community']).count()
 
-community_df.to_csv("wiki_data/community_list.csv")
+community_df.to_csv("../wiki_data/community_list.csv")
 
 comm_0 = list(community_df[community_df['Community'] == 0]['Name'])
 
@@ -36,4 +36,4 @@ for comm_num in comm_numbers:
 diam_zip = list(zip(comm_numbers, diameters))
 diameter_df = pd.DataFrame(diam_zip, columns = ['Community Number', 'Diameter'])
 diameter_df.sort_values(by = ['Diameter'])
-diameter_df.to_csv("wiki_data/community_diameters.csv")
+diameter_df.to_csv("../wiki_data/community_diameters.csv")

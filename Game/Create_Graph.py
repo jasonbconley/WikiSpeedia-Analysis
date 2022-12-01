@@ -10,20 +10,20 @@ def format_string(url_str):
 
 
 def get_edge_file():
-    edge_file = open("wiki_data/links.tsv", "rb")
+    edge_file = open("../wiki_data/links.tsv", "rb")
     graph = nx.read_edgelist(edge_file)
     edge_file.close()
     return graph
 
 
 def read_node_file():
-    nodes = pd.read_csv('wiki_data/articles.tsv')
+    nodes = pd.read_csv('../wiki_data/articles.tsv')
     nodes["Article_Name"] = nodes["Article_Name"].apply(format_string)
     return nodes
 
 
 def get_node_list():
-    nodes = pd.read_csv('wiki_data/articles.tsv')
+    nodes = pd.read_csv('../wiki_data/articles.tsv')
     nodes["Article_Name"] = nodes["Article_Name"].apply(format_string)
     return nodes["Article_Name"]
 
@@ -40,7 +40,7 @@ def main():
     wiki_network = create_graph()
 
     col_names = ['src', 'dest']
-    links = pd.read_csv("wiki_data/links.tsv", delimiter='\t', names=col_names)
+    links = pd.read_csv("../wiki_data/links.tsv", delimiter='\t', names=col_names)
     links["src"] = links["src"].apply(format_string)
     links["dest"] = links["dest"].apply(format_string)
 
@@ -56,7 +56,7 @@ def main():
         wiki_network.node[node]['x'] = float(x)
         wiki_network.node[node]['y'] = float(y)
 
-    nx.write_graphml(wiki_network, "./wiki_data/wiki_network.graphml")
+    nx.write_graphml(wiki_network, "../wiki_data/wiki_network.graphml")
 
 
 if __name__ == "__main__":
