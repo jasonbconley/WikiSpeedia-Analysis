@@ -35,4 +35,5 @@ for comm_num in comm_numbers:
 
 diam_zip = list(zip(comm_numbers, diameters))
 diameter_df = pd.DataFrame(diam_zip, columns = ['Community Number', 'Diameter'])
+diameter_df.sort_values(by = ['Diameter'])
 diameter_df.to_csv("wiki_data/community_diameters.csv")

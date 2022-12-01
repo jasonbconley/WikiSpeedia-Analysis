@@ -50,7 +50,13 @@ def main():
     wiki_network.remove_node("Directdebit")
     wiki_network.remove_node("Sponsorship_Directdebit")
 
-    nx.write_gml(wiki_network, "./wiki_data/wiki_network.gml")
+    pos = nx.spring_layout(wiki_network)
+
+    for node,(x,y) in pos.items():
+        wiki_network.node[node]['x'] = float(x)
+        wiki_network.node[node]['y'] = float(y)
+
+    nx.write_graphml(wiki_network, "./wiki_data/wiki_network.graphml")
 
 
 if __name__ == "__main__":
